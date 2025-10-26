@@ -1,0 +1,38 @@
+.c__task-card {
+  padding: 1rem .3rem;
+  max-width: 30rem;
+  border-bottom: solid 1px #ccc;
+  box-sizing: border-box;
+  cursor: move;
+  background: white;
+  font-size: .8rem;
+
+  &:not(.cdk-drag-placeholder) {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  .c__task-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .c__task-card-footer {
+    padding: 1rem;
+
+    button {
+      margin-top: 1rem;
+    }
+
+    button:nth-of-type(1) {
+      margin-right: 1.5rem;
+    }
+  }
+
+  .c__task-card-action {
+    padding: 1rem;
+    height: 1rem
+  }
+}
+
+

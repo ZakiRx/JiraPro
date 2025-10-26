@@ -1,0 +1,92 @@
+
+  @let task = this.task();
+  <h2 mat-dialog-title>{{ task ? 'Modifier la tâche' : 'Créer une nouvelle tâche' }}</h2>
+  <mat-dialog-content>
+
+    <form class="c__task-form" [formGroup]="taskForm" (ngSubmit)="submitForm()">
+
+      <mat-form-field appearance="outline" class="c__full-width">
+        <mat-label>Libellé de la tâche</mat-label>
+        <input
+          matInput
+          formControlName="label"
+          placeholder="Saisir le titre de la tâche"
+          required>
+        @if (label?.invalid && label?.touched) {
+          <mat-error>
+            @if (label?.errors?.['required']) {
+              Champ obligatoire
+            }
+            @if (label?.errors?.['minlength']) {
+              Minimum 3 caractères
+            }
+          </mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="c__full-width">
+        <mat-label>Description</mat-label>
+        <textarea
+          matInput
+          formControlName="description"
+          placeholder="Saisir la description de la tâche"
+          rows="4"
+          required>
+    </textarea>
+        @if (description?.invalid && description?.touched) {
+          <mat-error>
+            @if (description?.errors?.['required']) {
+              La description est obligatoire
+            }
+            @if (description?.errors?.['minlength']) {
+              La description doit contenir au moins 10 caractères
+            }
+          </mat-error>
+        }
+      </mat-form-field>
+      @if (!task) {
+        <div class="c__status-field-container">
+          <mat-form-field appearance="outline" class="status-field">
+            <mat-label>Statut</mat-label>
+            <mat-select formControlName="completed" required>
+              @for (status of taskStatuses$ | async; track status.id) {
+                <mat-option [value]="status.status">
+                  {{ status.status }}
+                </mat-option>
+              }
+            </mat-select>
+            @if (completed?.invalid && completed?.touched) {
+              <mat-error>Le statut est obligatoire</mat-error>
+            }
+          </mat-form-field>
+
+          <button
+            mat-mini-fab
+            color="accent"
+            type="button"
+            (click)="openCreateStatusDialog()"
+            matTooltip="Créer un nouveau statut"
+            class="c__add-status-btn">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      }
+
+
+      <div mat-dialog-actions class="c__form-actions">
+        <button mat-raised-button mat-dialog-close type="button" (click)="cancel()">
+          Annuler
+        </button>
+        <button
+          mat-raised-button
+          [mat-dialog-close]="true"
+          color="primary"
+          type="submit"
+          (click)="submitForm()"
+          [disabled]="taskForm.invalid">
+          {{ task ? 'Mettre à jour' : 'Créer' }} la tâche
+        </button>
+      </div>
+    </form>
+  </mat-dialog-content>
+
