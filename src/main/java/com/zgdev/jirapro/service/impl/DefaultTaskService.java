@@ -2,8 +2,12 @@ package com.zgdev.jirapro.service.impl;
 
 import com.zgdev.jirapro.entity.Task;
 import com.zgdev.jirapro.entity.TaskStatus;
+import com.zgdev.jirapro.exception.OperationException;
 import com.zgdev.jirapro.repository.TaskRepository;
 import com.zgdev.jirapro.service.TaskService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +16,7 @@ import java.util.Optional;
 @Service
 public class DefaultTaskService implements TaskService {
 
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultTaskService.class);
 
     private final TaskRepository taskRepository;
 
@@ -36,28 +41,53 @@ public class DefaultTaskService implements TaskService {
 
     @Override
     public Optional<Task> createTask(Task task) {
-        return Optional.of(taskRepository.save(task));
+        try {
+            return Optional.of(taskRepository.save(task));
+        } catch (Exception e) {
+            LOG.error("Unexpected error creating task: {}", task, e);
+            throw new OperationException("Failed to create task");
+        }
     }
 
     @Override
     public Optional<Task> createTaskWithStatus(Task task, TaskStatus status) {
-        task.setCompleted(status);
-        return Optional.of(taskRepository.save(task));
+        try {
+            task.setCompleted(status);
+            return Optional.of(taskRepository.save(task));
+        } catch (Exception e) {
+            LOG.error("Unexpected error creating task with status: {}", task, e);
+            throw new OperationException("Failed to create task");
+        }
     }
 
     @Override
     public void removeTask(Task task) {
-         taskRepository.delete(task);
+        try {
+            taskRepository.delete(task);
+        } catch (Exception e) {
+            LOG.error("Unexpected error deleting task: {}", task.getId(), e);
+            throw new OperationException("Failed to delete task");
+        }
     }
 
     @Override
     public Optional<Task> updateTask(Task task) {
-        return Optional.of(taskRepository.save(task));
+        try {
+            return Optional.of(taskRepository.save(task));
+        } catch (Exception e) {
+            LOG.error("Unexpected error updating task: {}", task, e);
+            throw new OperationException("Failed to update task");
+        }
     }
 
     @Override
     public Optional<Task> updateTaskStatus(Task task, TaskStatus newStatus) {
-        task.setCompleted(newStatus);
-        return Optional.of(taskRepository.save(task));
+        try {
+            task.setCompleted(newStatus);
+            return Optional.of(taskRepository.save(task));
+        } catch (Exception e) {
+            LOG.error("Unexpected error updating task status: {}", task.getId(), e);
+            throw new OperationException("Failed to update task status");
+        }
     }
 }

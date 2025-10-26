@@ -10,6 +10,5 @@ public interface TaskStatusService {
     Optional<TaskStatus> getTaskStatusById(long id);
     Optional<TaskStatus> createTaskStatus(TaskStatus TaskStatus);
     Optional<TaskStatus> removeTaskStatus(TaskStatus TaskStatus);
-    Optional<TaskStatus> updateTaskStatus(int id);
     Optional<TaskStatus>  getTaskStatusByStatus(String status);
 }

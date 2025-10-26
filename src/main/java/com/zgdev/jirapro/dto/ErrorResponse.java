@@ -14,7 +14,7 @@ public record ErrorResponse(
         int status,
         @Schema(description = "Type d'erreur", example = "Tâche non trouvée")
         String error,
-        @Schema(description = "Message d'erreur détaillé", example = "Tâche avec l'id 123 non trouvée")
+        @Schema(description = "Message d'erreurca détaillé", example = "Tâche avec l'id 123 non trouvée")
         String message
 ) {
     public ErrorResponse(int status, String error, String message) {
