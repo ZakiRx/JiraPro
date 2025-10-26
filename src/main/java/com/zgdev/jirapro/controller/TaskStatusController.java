@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,7 +50,7 @@ public class TaskStatusController {
                     description = "Détails du statut de tâche à créer",
                     required = true,
                     content = @Content(schema = @Schema(implementation = TaskStatusDTO.class)))
-            @RequestBody TaskStatusDTO taskDTO){
+            @RequestBody @Valid TaskStatusDTO taskDTO){
         return  new ResponseEntity<>(this.taskStatusFacade.createTaskStatus(taskDTO), HttpStatus.CREATED);
     }
 }

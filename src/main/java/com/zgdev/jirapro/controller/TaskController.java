@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -63,7 +64,7 @@ public class TaskController {
                     description = "Détails de la tâche à créer",
                     required = true,
                     content = @Content(schema = @Schema(implementation = TaskDTO.class)))
-            @RequestBody TaskDTO taskDTO){
+            @Valid @RequestBody TaskDTO taskDTO){
         return  new ResponseEntity<>(this.taskFacade.createTask(taskDTO), HttpStatus.CREATED);
     }
 
@@ -82,7 +83,7 @@ public class TaskController {
                     description = "Détails mis à jour de la tâche",
                     required = true,
                     content = @Content(schema = @Schema(implementation = TaskDTO.class)))
-            @RequestBody TaskDTO taskDTO){
+            @Valid @RequestBody TaskDTO taskDTO){
         return  ResponseEntity.ok(this.taskFacade.createTask(taskDTO));
     }
 
