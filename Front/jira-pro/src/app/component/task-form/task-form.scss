@@ -1,0 +1,11 @@
+.c__task-form{
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 2rem;
+  .status-field{
+    margin-right: 0.8rem;
+  }
+  .c__status-field-container{
+    margin-top: 1rem;
+  }
+}

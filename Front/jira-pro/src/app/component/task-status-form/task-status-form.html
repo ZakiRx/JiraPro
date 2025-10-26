@@ -1,0 +1,34 @@
+<h2 mat-dialog-title>Créer un nouveau statut de tâche</h2>
+<mat-dialog-content>
+  <form [formGroup]="statusForm" class="c__status-form">
+    <mat-form-field appearance="outline" class="c__full-width">
+      <mat-label>Nom du statut</mat-label>
+      <input
+        matInput
+        formControlName="status"
+        placeholder="par ex., En cours, Terminé"
+        required>
+      @if (status?.invalid && status?.touched) {
+        <mat-error>
+          @if (status?.errors?.['required']) {
+            Le nom du statut est obligatoire
+          }
+          @if (status?.errors?.['minlength']) {
+            Le statut doit contenir au moins 2 caractères
+          }
+        </mat-error>
+      }
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Annuler</button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="submit()"
+    [disabled]="statusForm.invalid">
+    Créer le statut
+  </button>
+</mat-dialog-actions>

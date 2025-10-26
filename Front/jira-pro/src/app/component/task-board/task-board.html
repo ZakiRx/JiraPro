@@ -1,0 +1,35 @@
+@if (!totalTasks()) {
+  <mat-card class="c__create-task-card" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title> Créer la première tâche</mat-card-title>
+    </mat-card-header>
+    <mat-card-actions>
+      <div class="c___create-new-task">
+        <button mat-raised-button (click)="openDialog()" ><mat-icon>add_task</mat-icon> Nouvelle tâche</button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+
+} @else {
+  <mat-card-actions>
+    <div class="c___create-new-task">
+      <button mat-raised-button (click)="openDialog()" ><mat-icon>add_task</mat-icon> Nouvelle tâche</button>
+    </div>
+  </mat-card-actions>
+  <div class="c__task-board" cdkDropListGroup>
+    @for (entry of taskEntries(); track entry[0]) {
+      <div class="c__task-container">
+        <div class="c__task-list">
+          <h3 class="c__task-list-header">{{ entry[0].status }}</h3>
+          <app-task-list cdkDropList [tasks]="entry[1]" [cdkDropListData]="{tasks: entry[1], status: entry[0]}" (cdkDropListDropped)="drop($event)">
+            >
+          </app-task-list>
+        </div>
+      </div>
+    }
+  </div>
+}
+
+
+
+

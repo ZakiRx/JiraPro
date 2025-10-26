@@ -1,0 +1,26 @@
+<mat-card class="c__task-card" appearance="outlined">
+  <mat-card-header class="c__task-card-header">
+    <mat-card-title>{{ taskDetail()?.label }}</mat-card-title>
+
+  </mat-card-header>
+  <mat-card-content>
+    <p>{{ taskDetail()?.description }}</p>
+  </mat-card-content>
+  <mat-card-footer class="c__task-card-footer">
+    <mat-chip-set aria-label="Task detail status">
+      <mat-chip>{{ taskDetail()?.completed?.status }}</mat-chip>
+    </mat-chip-set>
+    <button matFab extended class="c__task-card-action" (click)="openDialog()">
+      <mat-icon>edit_document</mat-icon>
+      Modifier
+    </button>
+    <button matFab extended color="red" class="c__task-card-action" (click)="removeTask(taskDetail())">
+      <mat-icon>delete</mat-icon>
+      Supprimer
+    </button>
+  </mat-card-footer>
+
+</mat-card>
+
+
+
