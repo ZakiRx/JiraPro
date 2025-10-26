@@ -101,7 +101,9 @@ class DefaultTaskServiceTest {
         Optional<List<Task>> result = taskService.getTasksByStatus(taskStatus);
 
         assertTrue(result.isPresent());
-        assertEquals(taskStatus, result.get());
+        assertEquals(2, result.get().size());
+        assertEquals(task1, result.get().get(0));
+        assertEquals(task2, result.get().get(1));
         verify(taskRepository, times(1)).getTasksByCompleted(taskStatus);
     }
 

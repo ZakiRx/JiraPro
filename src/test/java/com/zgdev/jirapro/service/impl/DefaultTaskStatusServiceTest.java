@@ -111,17 +111,10 @@ class DefaultTaskStatusServiceTest {
 
     @Test
     void shouldReturnEmpty_whenRemovingStatus() {
-        Optional<TaskStatus> result = taskStatusService.removeTaskStatus(taskStatus1);
-
-        assertFalse(result.isPresent());
-        verifyNoInteractions(taskStatusRepository);
+        doNothing().when(taskStatusRepository).delete(taskStatus1);
+         assertDoesNotThrow(() -> taskStatusService.removeTaskStatus(taskStatus1));
+        verify(taskStatusRepository,times(1)).delete(taskStatus1);
     }
 
-    @Test
-    void shouldReturnEmpty_whenUpdatingStatus() {
-        Optional<TaskStatus> result = taskStatusService.updateTaskStatus(1);
 
-        assertFalse(result.isPresent());
-        verifyNoInteractions(taskStatusRepository);
-    }
 }

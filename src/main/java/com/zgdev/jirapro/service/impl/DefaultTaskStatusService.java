@@ -48,10 +48,9 @@ public class DefaultTaskStatusService implements TaskStatusService {
     }
 
     @Override
-    public Optional<TaskStatus> removeTaskStatus(TaskStatus taskStatus) {
+    public void removeTaskStatus(TaskStatus taskStatus) {
         try {
             this.taskStatusRepository.delete(taskStatus);
-            return Optional.of(taskStatus);
         } catch (Exception e) {
             LOG.error("Unexpected error deleting task status: {}", taskStatus.getId(), e);
             throw new OperationException("Failed to delete task status");
